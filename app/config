@@ -2,5 +2,5 @@
           maxTotal="100" maxIdle="30" maxWaitMillis="10000"
           username="root" password="PASSWORD"
           driverClassName="com.mysql.jdbc.Driver"
-          url="jdbc:mysql://172.17.0.2:3306/studentapp"/>
+          url="jdbc:mysql://backend-service:3306/studentapp"/>
 
