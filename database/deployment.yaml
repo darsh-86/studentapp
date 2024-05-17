@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: studentdb 
-        image: darsh8699/studentapp:database1
+        image: darsh8699/studentapp:database1   # replace it with your docker image repo and tag 
         ports:
         - name: java
-          containerPort: 8080
+          containerPort: 3306   # make sure same port is exposed in Dockerfile (if doesn't exposed any port so you can use any available port)
           protocol: TCP 

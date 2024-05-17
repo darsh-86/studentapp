@@ -1,0 +1,27 @@
+# To create secrets 
+kubectl create secret generic db-secret --from-literal=username=root --from-literal=password=darsh@4321
+
+# Retrieve the secret in YAML format
+kubectl get secret db-secret -o yaml
+
+# The output will look something like this:
+# apiVersion: v1
+# data:
+#   password: ZGFyc2hANDMyMQ==
+#   username: cm9vdA==
+# kind: Secret
+# metadata:
+#   name: db-secret
+#   namespace: default
+# type: Opaque
+
+# Decode the username
+echo 'cm9vdA==' | base64 --decode
+
+# Decode the password
+echo 'ZGFyc2hANDMyMQ==' | base64 --decode
+
+# to build mysql student database image 
+docker build --build-arg MYSQL_ROOT_PASSWORD=$(kubectl get secret db-secret -o=jsonpath='{.data.password}' | base64 --decode) \
+             --build-arg MYSQL_DATABASE=$(kubectl get secret db-secret -o=jsonpath='{.data.username}' | base64 --decode) \
+             -t studentdb .
