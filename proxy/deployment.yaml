@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: proxy-forward-studentapp-container 
-        image: aakashshinde09/demo:pro
+        image: darsh8699/proxy:v1 # replace it by you docker hub repo and tag
         ports:
         - name: proxy
           containerPort: 80
