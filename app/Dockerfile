@@ -1,4 +1,4 @@
-FROM tomcat:latest
+FROM tomcat:9.0-slim
 
 WORKDIR /opt
 
@@ -15,3 +15,4 @@ RUN sed -i '20r /opt/config' $APP_HOME/conf/context.xml
 
 EXPOSE $PORT
 
+CMD ["catalina.sh", "run"]
