@@ -1,5 +1,5 @@
 FROM mysql:latest
-ENV V MYSQL_ROOT_PASSWORD="darsh@4321"
+ENV MYSQL_ROOT_PASSWORD="darsh@4321"
 ENV MYSQL_DATABASE="studentapp"
 COPY student.sql /docker-entrypoint-initdb.d/
 EXPOSE 3306
