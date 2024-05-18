@@ -1,5 +1,8 @@
 # To create secrets 
 kubectl create secret generic db-secret --from-literal=username=root --from-literal=password=darsh@4321
+# if you want to create container from iamge, run this command : 
+docker run -d --name test-container -e DB_USERNAME=root -e DB_PASSWORD=darsh@4321 your-image-name:your-tag
+
 
 # Retrieve the secret in YAML format
 kubectl get secret db-secret -o yaml
