@@ -6,7 +6,7 @@ spec:
   selector: 
     app: studentdb
   ports: 
-  - name: mysql
+  - name: http
     targetPort: 3306 
     port: 3306
   type: ClusterIP
