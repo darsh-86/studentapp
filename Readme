@@ -26,7 +26,7 @@ echo 'ZGFyc2hANDMyMQ==' | base64 --decode
 
 # to build mysql student database image 
 
-docker buildx build --platform linux/amd64 -t your-mysql-image:latest --build-arg MYSQL_ROOT_PASSWORD=rootpassword --build-arg MYSQL_DATABASE=studentapp .
+docker buildx build --platform linux/amd64 -t your-mysql-image:latest --build-arg MYSQL_ROOT_PASSWORD=rootpassword --build-arg MYSQL_DATABASE=studentapp --load .
 
 docker buildx build --platform linux/amd64 -t studentdb:latest --build-arg MYSQL_ROOT_PASSWORD=$(kubectl get secret db-secret -o=jsonpath='{.data.password}' | base64 --decode) --build-arg MYSQL_DATABASE=$(kubectl get secret db-secret -o=jsonpath='{.data.username}' | base64 --decode) --load .
 
