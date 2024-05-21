@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: studentdb 
-        image: darsh8699/studentdb:mysqldb2   # replace it with your docker image repo and tag 
+        image: darsh8699/studentapp:studentdb20   # replace it with your docker image repo and tag 
         ports:
-        - name: java
-          containerPort: 8080   # make sure same port is exposed in Dockerfile (if doesn't exposed any port so you can use any available port)
+        - name: mysql
+          containerPort: 3306   # make sure same port is exposed in Dockerfile (if doesn't exposed any port so you can use any available port)
           protocol: TCP
         env:
         - name: MYSQL_ROOT_PASSWORD
