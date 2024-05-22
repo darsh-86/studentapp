@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: student-app
-        image: darsh8699/studentapp:studentapp21
+        image: darsh8699/studentapp:app-v21
         ports:
         - name: tomcat
           containerPort: 8080

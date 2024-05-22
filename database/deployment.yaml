@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: studentdb 
-        image: darsh8699/studentapp:studentdb20   # replace it with your docker image repo and tag 
+        image: darsh8699/studentapp:mysqldb21   # replace it with your docker image repo and tag 
         ports:
         - name: mysql
           containerPort: 3306   # make sure same port is exposed in Dockerfile (if doesn't exposed any port so you can use any available port)
