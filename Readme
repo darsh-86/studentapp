@@ -1,5 +1,6 @@
-# To create secrets 
-kubectl create secret generic db-secret --from-literal=username=root --from-literal=password=darsh@4321
+To create secrets 
+``` kubectl create secret generic db-secret --from-literal=username=root --from-literal=password=darsh@4321
+
 # if you want to create container from iamge, run this command : 
 docker run -d --name test-container -e DB_USERNAME=root -e DB_PASSWORD=darsh@4321 your-image-name:your-tag
 
@@ -34,3 +35,4 @@ docker run -d --name test-mysql-container -e MYSQL_ROOT_PASSWORD=rootpassword -e
 
 docker run -d --name test-mysql-container -e MYSQL_ROOT_PASSWORD=$(kubectl get secret db-secret -o=jsonpath='{.data.password}' | base64 --decode) -e MYSQL_DATABASE=$(kubectl get secret db-secret -o=jsonpath='{.data.username}' | base64 --decode) studentdb:latest
 
+```
