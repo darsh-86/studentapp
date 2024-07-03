@@ -1,8 +1,3 @@
-Here's the content for your GitHub `README.md` file:
-
-```markdown
-# DevOps Scripts and Commands
-
 ## Creating Kubernetes Secrets
 
 To create a secret in Kubernetes, use the following command:
