@@ -34,14 +34,14 @@ pipeline {
             steps {
                 sshagent(['deploy']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@3.9.135.245 << 'EOF'
-                            cd /home/ec2-user/studentapp
-                            sudo yum install git -y
-                            git clone https://github.com/darsh-86/studentapp-Dockerfiles-for-jenkins.git
-                            cp studentapp-Dockerfiles-for-jenkins/* .
-                            sudo docker build -t studentapp .
+                        ssh -o StrictHostKeyChecking=no ec2-user@3.9.135.245 '
+                            cd /home/ec2-user/studentapp &&
+                            sudo yum install git -y &&
+                            git clone https://github.com/darsh-86/studentapp-Dockerfiles-for-jenkins.git &&
+                            cp studentapp-Dockerfiles-for-jenkins/* .  &&
+                            sudo docker build -t studentapp . &&
                             sudo docker run -d -p 8080:8080 studentapp
-                        EOF
+                        '
                     '''
                 }
             }
