@@ -23,9 +23,19 @@ pipeline {
               sh 'echo "skipked QG"'
             }
         }
+       stage('Copy build to App Server') {
+         steps {
+            sh 'scp -i /root/.ssh/id_rsa -r /var/lib/jenkins/workspace/studentapp ec2-user@3.9.135.245:/home/ec2-user/'
+            }
+        }
         stage('Deploy') {
             steps {
-             sh 'echo "skipked Deploy"'
+           sh 'ssh -i /root/.ssh/id_rsa  ec2-user@3.9.135.245
+           sh 'cd /home/ec2-user/studentapp'
+           sh 'sudo yum install git -y'
+           sh 'git init'
+           sh 'git clone  
+             
             }
         }
     }
