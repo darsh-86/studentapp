@@ -36,7 +36,6 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@3.9.135.245 '
                             cd /home/ec2-user/studentapp &&
-                            sudo yum install git -y &&
                             git clone https://github.com/darsh-86/studentapp-Dockerfiles-for-jenkins.git &&
                             cp studentapp-Dockerfiles-for-jenkins/* .  &&
                             sudo docker build -t studentapp . &&
