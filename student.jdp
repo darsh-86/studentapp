@@ -23,16 +23,18 @@ pipeline {
                 sh 'echo "skipped QG"'
             }
         }
-        stage('Copy build to App Server') {
+        stage('Copy') {
             steps {
-                sh 'scp -i /root/.ssh/id_rsa -r /var/lib/jenkins/workspace/studentapp ec2-user@3.9.135.245:/home/ec2-user/'
+                sshagent(['deploy']) {
+                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/studentapp ec2-user@3.9.135.245:/home/ec2-user/'
+                }
             }
         }
         stage('Deploy') {
             steps {
                 script {
                     sh '''
-                        ssh -i /root/.ssh/id_rsa ec2-user@3.9.135.245 << EOF
+                        ssh -o StrictHostKeyChecking=no ec2-user@3.9.135.245 << EOF
                             cd /home/ec2-user/studentapp
                             sudo yum install git -y
                             git clone https://github.com/darsh-86/studentapp-Dockerfiles-for-jenkins.git
