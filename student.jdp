@@ -8,35 +8,41 @@ pipeline {
         }
         stage('Build') {
             steps { 
-                 sh '/opt/maven/bin/mvn clean package'
+                sh '/opt/maven/bin/mvn clean package'
             }
         }
         stage('Test') {
             steps {
-               withSonarQubeEnv('sonarqube')  {
-                sh '/opt/maven/bin/mvn sonar:sonar'
+                withSonarQubeEnv('sonarqube') {
+                    sh '/opt/maven/bin/mvn sonar:sonar'
                 }
             }
         } 
         stage('Quality Gate') {
             steps {
-              sh 'echo "skipked QG"'
+                sh 'echo "skipped QG"'
             }
         }
-       stage('Copy build to App Server') {
-         steps {
-            sh 'scp -i /root/.ssh/id_rsa -r /var/lib/jenkins/workspace/studentapp ec2-user@3.9.135.245:/home/ec2-user/'
+        stage('Copy build to App Server') {
+            steps {
+                sh 'scp -i /root/.ssh/id_rsa -r /var/lib/jenkins/workspace/studentapp ec2-user@3.9.135.245:/home/ec2-user/'
             }
         }
         stage('Deploy') {
             steps {
-           sh 'ssh -i /root/.ssh/id_rsa  ec2-user@3.9.135.245
-           sh 'cd /home/ec2-user/studentapp'
-           sh 'sudo yum install git -y'
-           sh 'git init'
-           sh 'git clone  
-             
+                script {
+                    sh '''
+                        ssh -i /root/.ssh/id_rsa ec2-user@3.9.135.245 << EOF
+                            cd /home/ec2-user/studentapp
+                            sudo yum install git -y
+                            git clone https://github.com/darsh-86/studentapp-Dockerfiles-for-jenkins.git
+                            cp studentapp-Dockerfiles-for-jenkins/* .
+                            sudo docker build -t studentapp .
+                            sudo docker run -d -p 8080:8080 studentapp
+                        EOF
+                    '''
+                }
             }
         }
     }
-} 
+}
